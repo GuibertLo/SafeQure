@@ -1,33 +1,27 @@
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 import 'widgets/scanner.dart';
+import 'screens/home_screen.dart';
 
 class App extends StatefulWidget {
-  const App() : super(key: key);
+  const App({Key? key}) : super(key: key);
 
   @override
   State<App> createState() => _AppState();
 }
 
 class _AppState extends State<App> {
-  /// TODO: 1.2 DONE Remove appState variable and initState method
 
   @override
   Widget build(BuildContext context) {
-    /// TODO: 1.3 DONE return a ChangeNotifierProvider with MaterialApp as child
-    ///           parameter and pass the todos to AppState constructor:
-    ///
-    return ChangeNotifierProvider(
-        create: (_) => AppState(todos: widget.repository.todos),
-        child: MaterialApp(
+
+    return MaterialApp(
           routes: {
             /// TODO: 2.0 DONE remove functions and appState from the two constructors
-            AddEditScreen.route: (context) => AddEditScreen(),
-            HomeScreen.route: (context) => HomeScreen()
+            HomeScreen.route: (context) => const HomeScreen()
           },
           initialRoute: HomeScreen.route,
-        )
-    );
+        );
 
   }
 
