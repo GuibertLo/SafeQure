@@ -31,6 +31,11 @@ class _QRViewExampleState extends State<QRViewExample> {
 
   @override
   Widget build(BuildContext context) {
+    return _buildQrView(context);
+  }
+  /*
+  @override
+  Widget build(BuildContext context) {
     return Scaffold(
       body: Column(
         children: <Widget>[
@@ -120,7 +125,7 @@ class _QRViewExampleState extends State<QRViewExample> {
         ],
       ),
     );
-  }
+  }*/
 
   Widget _buildQrView(BuildContext context) {
     // For this example we check how width or tall the device is and change the scanArea and overlay accordingly.
