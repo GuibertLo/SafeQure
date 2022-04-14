@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 
-import '../widgets/scanner.dart';
 
 class ListScans extends StatefulWidget {
 
@@ -18,6 +17,12 @@ class _ListScansState extends State<ListScans> {
 
   @override
   Widget build(BuildContext context) {
-      return const QRViewExample();
+    return IconButton(
+        color: Colors.white,
+        icon: const Icon(Icons.flash_off, color: Colors.grey),
+        onPressed: () {
+
+        }
+    );
   }
 }

@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
-
-import '../widgets/scanner.dart';
+import 'package:mobile_scanner/mobile_scanner.dart';
 
 class Scanner extends StatefulWidget {
 
@@ -12,23 +11,42 @@ class Scanner extends StatefulWidget {
 
   @override
   State<Scanner> createState() => _ScannerState();
+
+
 }
 
 class _ScannerState extends State<Scanner> {
 
+  MobileScannerController cameraController = MobileScannerController();
+
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      body: const QRViewExample(),
-      floatingActionButton: FloatingActionButton(
-        child: const Icon(Icons.flashlight_on),
-        onPressed: () {
-          // TODO: turn on flashlight
-        }
-      ),
+        body: MobileScanner(
+            allowDuplicates: false,
+            controller: cameraController,
+            onDetect: (barcode, args) {
+              final String? code = barcode.rawValue;
+              debugPrint('Barcode found! $code');
+            }
+        ),
+        floatingActionButton: IconButton(
+            color: Colors.white,
+            icon: ValueListenableBuilder(
+              valueListenable: cameraController.torchState,
+              builder: (context, state, child) {
+                switch (state as TorchState) {
+                  case TorchState.off:
+                    return const Icon(Icons.flash_off, color: Colors.grey);
+                  case TorchState.on:
+                    return const Icon(Icons.flash_on, color: Colors.yellow);
+                }
+              },
+            ),
+            iconSize: 64.0,
+            onPressed: () => cameraController.toggleTorch(),
+          ),
+
     );
-
-
-
   }
 }
