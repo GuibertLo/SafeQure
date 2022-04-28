@@ -17,36 +17,22 @@ class AppState extends ChangeNotifier {
   int get nbCompleted =>
       responses.fold(0, (sum, todo) => todo.cleanResult ? ++sum : sum);
 
-  ScanReqResponse? scanById(String id) {
+  ScanReqResponse? responseById(String id) {
     return responses.firstWhereOrNull((e) => e.id == id);
     //TODO: see why not working
     return null;
   }
 
-  void addScan(ScanReqResponse response) {
+  void addResponse(ScanReqResponse response) {
     responses.add(response);
     notifyListeners();
   }
 
-  void removeScan(ScanReqResponse response) {
+  void deleteResponse(ScanReqResponse response) {
     responses.remove(response);
     notifyListeners();
   }
 
-  // TODO: complete
-  // void updateScan(
-  //     ScanReqResponse response, {
-  //       bool? complete,
-  //       String? id,
-  //       String? note,
-  //       String? task,
-  //     }) {
-  //   todo.complete = complete ?? todo.complete;
-  //   todo.id = id ?? todo.id;
-  //   todo.note = note ?? todo.note;
-  //   todo.task = task ?? todo.task;
-  //   notifyListeners();
-  // }
 }
 
 enum AppTab { scanner, list }

@@ -41,9 +41,6 @@ class HistoryScreen extends StatelessWidget {
       );
     }
 
-    /// TODO: 2.6 DONE remove updateTodo and removeTodo, keep todos which will come from Provider
-    ///          to TodoList widget
-
     return ListScans(
         responses: responses
     );

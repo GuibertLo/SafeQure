@@ -20,20 +20,10 @@ class DetailScreen extends StatelessWidget {
     return Scaffold(
       appBar: AppBar(
         title: const Text("Response details"),
-        actions: [
-          IconButton(
-            tooltip: "Delete response",
-            icon: const Icon(Icons.delete),
-            onPressed: () {
-              onDelete();
-              Navigator.pop(context);
-            },
-          )
-        ],
       ),
       body: Selector<AppState, ScanReqResponse?>(
         shouldRebuild: (prev, next) => next != null,
-        selector: (context, model) => model.scanById(response.id),
+        selector: (context, model) => model.responseById(response.id),
         builder: (context, t, _) {
           return Padding(
             padding: const EdgeInsets.all(16.0),
@@ -70,22 +60,15 @@ class DetailScreen extends StatelessWidget {
           );
         },
       ),
-      // floatingActionButton: FloatingActionButton(
-      //   tooltip: "Edit todo",
-      //   child: const Icon(Icons.edit),
-      //   onPressed: () {
-      //     Navigator.of(context).push(
-      //       MaterialPageRoute(
-      //         builder: (context) {
-      //           /// TODO: 2.10 DONE remove updateTodo
-      //           return AddEditScreen(
-      //             todo: todo,
-      //           );
-      //         },
-      //       ),
-      //     );
-      //   },
-      // ),
+      floatingActionButton: FloatingActionButton(
+        tooltip: "Delete scan",
+        child: const Icon(Icons.delete_rounded),
+        backgroundColor: Colors.red,
+        onPressed: () {
+          onDelete();
+          Navigator.pop(context);
+         },
+       ),
     );
   }
 }

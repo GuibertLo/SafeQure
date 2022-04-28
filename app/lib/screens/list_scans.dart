@@ -1,7 +1,8 @@
 import 'package:app/models/response.dart';
 import 'package:flutter/material.dart';
-import 'package:http/http.dart';
+import 'package:provider/provider.dart';
 
+import '../models/app_state.dart';
 import '../widgets/response_item.dart';
 import 'detail_screen.dart';
 
@@ -45,17 +46,9 @@ class ListScans extends StatelessWidget {
   //State<ListScans> createState() => _ListScansState(responses);
 }
 
-void _onDetails(BuildContext context, ScanReqResponse response) {
-
-
-
-  print("awd");
-}
-
 
 void _onTrash(BuildContext context, ScanReqResponse response) {
 
-  //Provider.of<AppState>(context, listen: false).removeTodo(todo);
+  Provider.of<AppState>(context, listen: false).deleteResponse(response);
 
-  print("awd");
 }
