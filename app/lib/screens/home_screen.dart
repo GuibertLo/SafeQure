@@ -1,3 +1,4 @@
+import 'package:app/screens/history_screen.dart';
 import 'package:app/screens/scanner.dart';
 import 'package:flutter/material.dart';
 
@@ -37,7 +38,7 @@ class _HomeScreenState extends State<HomeScreen> {
       ),
       body: activeTab == AppTab.scanner
           ? const Scanner()
-          : const ListScans(),
+          : const HistoryScreen(),
 
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: AppTab.values.indexOf(activeTab),

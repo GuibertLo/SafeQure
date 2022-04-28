@@ -22,14 +22,20 @@ class _ScannerState extends State<Scanner> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-        body: MobileScanner(
-            allowDuplicates: false,
-            controller: cameraController,
-            onDetect: (barcode, args) {
-              final String? code = barcode.rawValue;
-              debugPrint('Barcode found! $code');
-            }
+        body: Stack(
+          children: [
+            MobileScanner(
+                allowDuplicates: false,
+                controller: cameraController,
+                onDetect: (barcode, args) {
+                  final String? code = barcode.rawValue;
+                  debugPrint('Barcode found! $code');
+                }
+            ),
+            const Overlay(),
+          ]
         ),
+
         floatingActionButton: IconButton(
             color: Colors.white,
             icon: ValueListenableBuilder(
