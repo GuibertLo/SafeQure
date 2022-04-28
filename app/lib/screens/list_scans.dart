@@ -1,8 +1,9 @@
-import 'package:app/model/response.dart';
+import 'package:app/models/response.dart';
 import 'package:flutter/material.dart';
 import 'package:http/http.dart';
 
 import '../widgets/response_item.dart';
+import 'detail_screen.dart';
 
 
 class ListScans extends StatelessWidget {
@@ -24,10 +25,20 @@ class ListScans extends StatelessWidget {
           ScanReqResponse response = responses[index];
           return ResponseItem(
             response: response,
-            onDetails: () => _onDetails(context, response),
-            onTrash: () => _onTrash(context, response),
+            onDetails: () => {
+            Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+              return DetailScreen(
+                response: response,
+
+                /// TODO: 2.8 DONE remove updateTodo
+                onDelete: () => _onTrash(context, response),
+              );
+            }))
+        },
+          onTrash: () => _onTrash(context, response)
           );
-        });
+        }
+      );
   }
 
   //@override
@@ -36,7 +47,7 @@ class ListScans extends StatelessWidget {
 
 void _onDetails(BuildContext context, ScanReqResponse response) {
 
-  //navigate
+
 
   print("awd");
 }

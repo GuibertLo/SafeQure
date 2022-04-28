@@ -1,35 +1,35 @@
+import 'package:app/models/response.dart';
 import 'package:flutter/material.dart';
 import 'package:collection/collection.dart';
 
-import '../model/response.dart';
 
-// TODO: 1.1 DONE We will use our AppState model as a global app state. To notify
+// TODO: 1.1 DONE We will use our AppState models as a global app state. To notify
 //         children widgets when the data has changed, we need to extends
-//         ChangeNotifier class. This model will be "provided" to the children.
+//         ChangeNotifier class. This models will be "provided" to the children.
 //         You can look at the updateTodo method below to see how to notify
-//         widgets that listen to our model. Next step -> go to app.dart
+//         widgets that listen to our models. Next step -> go to app.dart
 
 class AppState extends ChangeNotifier {
-  List<ScanReqResponse> scans;
+  List<ScanReqResponse> responses;
 
-  AppState({required this.scans});
+  AppState({required this.responses});
 
   int get nbCompleted =>
-      scans.fold(0, (sum, todo) => todo.cleanResult ? ++sum : sum);
+      responses.fold(0, (sum, todo) => todo.cleanResult ? ++sum : sum);
 
   ScanReqResponse? scanById(String id) {
-    //return ScanReqResponse.firstWhereOrNull((e) => e.id == id);
+    return responses.firstWhereOrNull((e) => e.id == id);
     //TODO: see why not working
     return null;
   }
 
   void addScan(ScanReqResponse response) {
-    scans.add(response);
+    responses.add(response);
     notifyListeners();
   }
 
   void removeScan(ScanReqResponse response) {
-    scans.remove(response);
+    responses.remove(response);
     notifyListeners();
   }
 

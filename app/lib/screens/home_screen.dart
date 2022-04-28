@@ -3,7 +3,7 @@ import 'package:app/screens/scanner.dart';
 import 'package:flutter/material.dart';
 
 
-import '../models/AppState.dart';
+import '../models/app_state.dart';
 import 'list_scans.dart';
 
 class HomeScreen extends StatefulWidget {

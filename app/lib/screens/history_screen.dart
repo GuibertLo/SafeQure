@@ -1,8 +1,8 @@
-import 'package:app/model/response.dart';
+import 'package:app/models/response.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-// import '../models/app_state.dart';
+import '../models/app_state.dart';
 import 'list_scans.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -20,9 +20,7 @@ class HistoryScreen extends StatelessWidget {
     final height = MediaQuery.of(context).size.height;
 
 
-    final responses = [
-      ScanReqResponse(cleanResult: true, websiteThreatType: "https://google.com", virusFound: [], httpCode: 200, id: "id")
-    ];
+    final responses = Provider.of<AppState>(context).responses;
 
     if (responses.isEmpty) {
       return Center(

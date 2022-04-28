@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../model/response.dart';
+import '../models/response.dart';
 
 class ResponseItem extends StatelessWidget {
   const ResponseItem(
@@ -21,8 +21,9 @@ class ResponseItem extends StatelessWidget {
         response.id,
       ),
       onTap: onDetails,
-      subtitle: Text(response.virusFound.toString()),
-      onLongPress: onTrash
+      subtitle: Text(response.websiteThreatType),
+      onLongPress: onTrash,
+
     );
   }
 }

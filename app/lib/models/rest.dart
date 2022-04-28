@@ -1,6 +1,6 @@
 import 'dart:convert';
 
-import 'package:app/model/response.dart';
+import 'package:app/models/response.dart';
 import 'package:http/http.dart' as http;
 
 class ApiRequestVT {
