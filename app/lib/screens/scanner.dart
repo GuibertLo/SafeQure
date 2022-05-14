@@ -1,4 +1,5 @@
 import 'package:app/widgets/result.dart';
+import 'package:app/widgets/overlay.dart' as custom;
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
@@ -23,7 +24,6 @@ class _ScannerState extends State<Scanner> {
         MobileScanner(
             allowDuplicates: false,
             controller: cameraController,
-            child: qrData,
             onDetect: (barcode, args) {
               final String? code = barcode.url?.url;
               setState(() {
@@ -31,7 +31,8 @@ class _ScannerState extends State<Scanner> {
               });
               // _launchScan(code!);
             }),
-        const Overlay(),
+        qrData != null ? qrData! : Container(),
+        custom.Overlay(),
       ]),
       floatingActionButton: FloatingActionButton(
         tooltip: "Delete scan",
