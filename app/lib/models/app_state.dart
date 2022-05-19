@@ -10,9 +10,9 @@ import 'package:collection/collection.dart';
 //         widgets that listen to our models. Next step -> go to app.dart
 
 class AppState extends ChangeNotifier {
-List<ScanReqResponse> responses;
+late List<ScanReqResponse> responses;
 
-AppState({required this.responses});
+//AppState({required this.responses});
 
 int get nbCompleted =>
 responses.fold(0, (sum, todo) => todo.cleanResult ? ++sum : sum);

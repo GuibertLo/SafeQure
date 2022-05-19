@@ -4,7 +4,7 @@ import 'package:app/models/response.dart';
 /// return this sample list
 class ResponsesRepository {
 
-  final LocalApi _localApi;
+  //final LocalApi _localApi;
   /// Normally theses todos must come from an API
   final List<ScanReqResponse> _responses = [
     ScanReqResponse(cleanResult: false, websiteThreatType: "https://google.com", virusFound: [], httpCode: 200, id: "id1"),
@@ -13,5 +13,5 @@ class ResponsesRepository {
   ];
 
   // Call local API
-  List<ScanReqResponse> get allResponses => _localApi.getAllResponses;
+  //List<ScanReqResponse> get allResponses => _localApi.getAllResponses;
 }
