@@ -6,7 +6,7 @@ part of 'tables.dart';
 // MoorGenerator
 // **************************************************************************
 
-// ignore_for_file: type=lint
+// ignore_for_file: unnecessary_brace_in_string_interps, unnecessary_this
 class ScansTableData extends DataClass implements Insertable<ScansTableData> {
   final int id;
   final String websiteThreatType;

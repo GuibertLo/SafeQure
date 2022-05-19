@@ -10,28 +10,28 @@ import 'package:collection/collection.dart';
 //         widgets that listen to our models. Next step -> go to app.dart
 
 class AppState extends ChangeNotifier {
-  List<ScanReqResponse> responses;
+List<ScanReqResponse> responses;
 
-  AppState({required this.responses});
+AppState({required this.responses});
 
-  int get nbCompleted =>
-      responses.fold(0, (sum, todo) => todo.cleanResult ? ++sum : sum);
+int get nbCompleted =>
+responses.fold(0, (sum, todo) => todo.cleanResult ? ++sum : sum);
 
-  ScanReqResponse? responseById(String id) {
-    return responses.firstWhereOrNull((e) => e.id == id);
-    //TODO: see why not working
-    return null;
-  }
+ScanReqResponse? responseById(String id) {
+return responses.firstWhereOrNull((e) => e.id == id);
+//TODO: see why not working
+return null;
+}
 
-  void addResponse(ScanReqResponse response) {
-    responses.add(response);
-    notifyListeners();
-  }
+void addResponse(ScanReqResponse response) {
+responses.add(response);
+notifyListeners();
+}
 
-  void deleteResponse(ScanReqResponse response) {
-    responses.remove(response);
-    notifyListeners();
-  }
+void deleteResponse(ScanReqResponse response) {
+responses.remove(response);
+notifyListeners();
+}
 
 }
 
