@@ -1,3 +1,5 @@
+import 'package:app/models/response.dart';
+import 'package:app/models/rest.dart';
 import 'package:app/widgets/result.dart';
 import 'package:app/widgets/overlay.dart' as custom;
 import 'package:flutter/material.dart';
@@ -27,12 +29,11 @@ class _ScannerState extends State<Scanner> {
             onDetect: (barcode, args) {
               final String? code = barcode.url?.url;
               setState(() {
-                qrData = QrData(barcode);
+                qrData = QrData(barcode, _launchScan);
               });
               // _launchScan(code!);
             }),
-        qrData != null ? qrData! : Container(),
-        custom.Overlay(),
+        custom.Overlay(qr: qrData),
       ]),
       floatingActionButton: FloatingActionButton(
         tooltip: "Delete scan",
@@ -56,6 +57,7 @@ class _ScannerState extends State<Scanner> {
   Future<void> _launchScan(String url) async {
     /*Thanks to nullable check, we are sure to have a valid url*/
 
-    // int scan = runScan(code);
+    ScanReqResponse? scan = await ApiRequestVT.runScan(url);
+    /*TODO Add line in history*/
   }
 }

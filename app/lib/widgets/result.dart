@@ -6,28 +6,21 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrData extends StatelessWidget {
   Barcode result;
-  QrData(this.result, {Key? key}) : super(key: key);
+  Function launchScan;
+  QrData(this.result, this.launchScan, {Key? key}) : super(key: key);
 
   @override
   Widget build(BuildContext context) {
-    return Positioned(
-      left: result.corners![1].dx,
-      top: result.corners![1].dy,
-      child: Container(
-          color: Colors.red,
-          child: ElevatedButton(
-              style: ElevatedButton.styleFrom(
-                minimumSize: Size(
-                    (result.corners![1].dx - result.corners![0].dx),
-                    10), // takes postional arguments as width and height
-              ),
-              child: Text(
-                'Scan Me',
-              ) /*'Barcode Type: ${describeEnum(result.format)}   Data: ${result.url?.url}')*/,
-              onPressed: Uri.parse(result.url?.url ?? "").isAbsolute
-                  ? () => {ApiRequestVT.runScan(result.url!.url!)}
-                  : null)),
-    );
-    ;
+    return Container(
+        // color: Colors.red,
+
+        width: 60 / 100 * MediaQuery.of(context).size.width,
+        child: ElevatedButton(
+            child: Text(
+              result.url!.url!,
+            ) /*'Barcode Type: ${describeEnum(result.format)}   Data: ${result.url?.url}')*/,
+            onPressed: Uri.parse(result.url?.url ?? "").isAbsolute
+                ? () => {ApiRequestVT.runScan(result.url!.url!)}
+                : null));
   }
 }

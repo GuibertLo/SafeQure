@@ -21,22 +21,22 @@ class ApiRequestVT {
         headers: queryHeader, body: queryBody);
   }
 
-  static Future<int> runScan(String url) async {
+  static Future<ScanReqResponse?> runScan(String url) async {
     ScanReqResponse? reqResponse;
     http.Response resp = await fetchScan(url);
     reqResponse = ScanReqResponse.fromJson(jsonDecode(resp.body));
     if (reqResponse == null) {
       throw Exception('Failed to fetch scan');
     }
-    if (reqResponse.httpCode == 200) {
+    if (resp.statusCode == 200) {
       // If the server did return a 200 OK response,
       // then parse the JSON.
-      print("200");
+      return reqResponse;
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
       print("error");
+      return null;
     }
-    return 0;
   }
 }
