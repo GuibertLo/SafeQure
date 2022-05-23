@@ -1,5 +1,5 @@
-import 'package:app/repository/tables.dart';
-
+import 'package:app/repository/database.dart';
+import 'package:uuid/uuid.dart';
 import '../models/response.dart';
 
 class LocalApi {
@@ -7,22 +7,18 @@ class LocalApi {
 
   LocalApi({required MyDatabase myDatabase}) : _db = myDatabase;
 
-  // @override
-  // Future<void> deleteTodo(String id) async {
-  //   await _db.deleteTodo(id);
-  // }
+  Future<void> deleteResponse(int id) async {
+    await _db.deleteScan(id);
+  }
 
-  /*@override
-  Stream<List<Todo>> getTodos() => _db..asyncMap((event) {
-    return event.map((e) => Todo.fromDrift(e)).toList();
-  });
-
-  @override
-  Future<void> saveScan(ScanReqResponse newScan) async {
+  Future<void> saveResponse(ScanReqResponse newScan) async {
     await _db.saveScan(ScansTableData(
-        complete: todo.complete,
-        id: todo.id,
-        note: todo.note,
-        task: todo.task));
-  }*/
+        id: 1,
+        websiteThreatType: newScan.websiteThreatType,
+        httpCode: newScan.httpCode,
+        cleanResult : newScan.cleanResult,
+        virusFoundCount: newScan.virusFound.length));
+  }
+
+  Stream<List<ScansTableData>> getAllResponses() => _db.allScans;
 }

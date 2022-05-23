@@ -1,8 +1,9 @@
 import 'package:app/models/response.dart';
+import 'package:app/repository/database.dart';
+import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/app_state.dart';
 import 'list_scans.dart';
 
 class HistoryScreen extends StatelessWidget {
@@ -19,8 +20,7 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
-
-    final responses = Provider.of<AppState>(context).responses;
+    final responses = Provider.of<ResponsesRepository>(context).getAllResponses();
 
     if (responses.isEmpty) {
       return Center(

@@ -2,7 +2,6 @@ import 'package:app/models/response.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../models/app_state.dart';
 import '../widgets/response_item.dart';
 import 'detail_screen.dart';
 
