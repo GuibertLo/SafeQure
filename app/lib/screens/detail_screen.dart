@@ -44,7 +44,7 @@ class DetailScreen extends StatelessWidget {
                               bottom: 16.0,
                             ),
                             child: Text(
-                              response.websiteThreatType,
+                              response.url,
                               style: Theme.of(context).textTheme.headlineMedium,
                             ),
                           ),
