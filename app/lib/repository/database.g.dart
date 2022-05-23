@@ -10,12 +10,14 @@ part of 'database.dart';
 class ScansTableData extends DataClass implements Insertable<ScansTableData> {
   final int id;
   final String websiteThreatType;
+  final String url;
   final int httpCode;
   final bool cleanResult;
   final int virusFoundCount;
   ScansTableData(
       {required this.id,
       required this.websiteThreatType,
+      required this.url,
       required this.httpCode,
       required this.cleanResult,
       required this.virusFoundCount});
@@ -26,6 +28,8 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
           .mapFromDatabaseResponse(data['${effectivePrefix}id'])!,
       websiteThreatType: const StringType().mapFromDatabaseResponse(
           data['${effectivePrefix}website_threat_type'])!,
+      url: const StringType()
+          .mapFromDatabaseResponse(data['${effectivePrefix}url'])!,
       httpCode: const IntType()
           .mapFromDatabaseResponse(data['${effectivePrefix}http_code'])!,
       cleanResult: const BoolType()
@@ -39,6 +43,7 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
     final map = <String, Expression>{};
     map['id'] = Variable<int>(id);
     map['website_threat_type'] = Variable<String>(websiteThreatType);
+    map['url'] = Variable<String>(url);
     map['http_code'] = Variable<int>(httpCode);
     map['clean_result'] = Variable<bool>(cleanResult);
     map['virus_found_count'] = Variable<int>(virusFoundCount);
@@ -49,6 +54,7 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
     return ScansTableCompanion(
       id: Value(id),
       websiteThreatType: Value(websiteThreatType),
+      url: Value(url),
       httpCode: Value(httpCode),
       cleanResult: Value(cleanResult),
       virusFoundCount: Value(virusFoundCount),
@@ -61,6 +67,7 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
     return ScansTableData(
       id: serializer.fromJson<int>(json['id']),
       websiteThreatType: serializer.fromJson<String>(json['websiteThreatType']),
+      url: serializer.fromJson<String>(json['url']),
       httpCode: serializer.fromJson<int>(json['httpCode']),
       cleanResult: serializer.fromJson<bool>(json['cleanResult']),
       virusFoundCount: serializer.fromJson<int>(json['virusFoundCount']),
@@ -72,6 +79,7 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
     return <String, dynamic>{
       'id': serializer.toJson<int>(id),
       'websiteThreatType': serializer.toJson<String>(websiteThreatType),
+      'url': serializer.toJson<String>(url),
       'httpCode': serializer.toJson<int>(httpCode),
       'cleanResult': serializer.toJson<bool>(cleanResult),
       'virusFoundCount': serializer.toJson<int>(virusFoundCount),
@@ -81,12 +89,14 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
   ScansTableData copyWith(
           {int? id,
           String? websiteThreatType,
+          String? url,
           int? httpCode,
           bool? cleanResult,
           int? virusFoundCount}) =>
       ScansTableData(
         id: id ?? this.id,
         websiteThreatType: websiteThreatType ?? this.websiteThreatType,
+        url: url ?? this.url,
         httpCode: httpCode ?? this.httpCode,
         cleanResult: cleanResult ?? this.cleanResult,
         virusFoundCount: virusFoundCount ?? this.virusFoundCount,
@@ -96,6 +106,7 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
     return (StringBuffer('ScansTableData(')
           ..write('id: $id, ')
           ..write('websiteThreatType: $websiteThreatType, ')
+          ..write('url: $url, ')
           ..write('httpCode: $httpCode, ')
           ..write('cleanResult: $cleanResult, ')
           ..write('virusFoundCount: $virusFoundCount')
@@ -105,13 +116,14 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
 
   @override
   int get hashCode => Object.hash(
-      id, websiteThreatType, httpCode, cleanResult, virusFoundCount);
+      id, websiteThreatType, url, httpCode, cleanResult, virusFoundCount);
   @override
   bool operator ==(Object other) =>
       identical(this, other) ||
       (other is ScansTableData &&
           other.id == this.id &&
           other.websiteThreatType == this.websiteThreatType &&
+          other.url == this.url &&
           other.httpCode == this.httpCode &&
           other.cleanResult == this.cleanResult &&
           other.virusFoundCount == this.virusFoundCount);
@@ -120,12 +132,14 @@ class ScansTableData extends DataClass implements Insertable<ScansTableData> {
 class ScansTableCompanion extends UpdateCompanion<ScansTableData> {
   final Value<int> id;
   final Value<String> websiteThreatType;
+  final Value<String> url;
   final Value<int> httpCode;
   final Value<bool> cleanResult;
   final Value<int> virusFoundCount;
   const ScansTableCompanion({
     this.id = const Value.absent(),
     this.websiteThreatType = const Value.absent(),
+    this.url = const Value.absent(),
     this.httpCode = const Value.absent(),
     this.cleanResult = const Value.absent(),
     this.virusFoundCount = const Value.absent(),
@@ -133,16 +147,19 @@ class ScansTableCompanion extends UpdateCompanion<ScansTableData> {
   ScansTableCompanion.insert({
     this.id = const Value.absent(),
     required String websiteThreatType,
+    required String url,
     required int httpCode,
     required bool cleanResult,
     required int virusFoundCount,
   })  : websiteThreatType = Value(websiteThreatType),
+        url = Value(url),
         httpCode = Value(httpCode),
         cleanResult = Value(cleanResult),
         virusFoundCount = Value(virusFoundCount);
   static Insertable<ScansTableData> custom({
     Expression<int>? id,
     Expression<String>? websiteThreatType,
+    Expression<String>? url,
     Expression<int>? httpCode,
     Expression<bool>? cleanResult,
     Expression<int>? virusFoundCount,
@@ -150,6 +167,7 @@ class ScansTableCompanion extends UpdateCompanion<ScansTableData> {
     return RawValuesInsertable({
       if (id != null) 'id': id,
       if (websiteThreatType != null) 'website_threat_type': websiteThreatType,
+      if (url != null) 'url': url,
       if (httpCode != null) 'http_code': httpCode,
       if (cleanResult != null) 'clean_result': cleanResult,
       if (virusFoundCount != null) 'virus_found_count': virusFoundCount,
@@ -159,12 +177,14 @@ class ScansTableCompanion extends UpdateCompanion<ScansTableData> {
   ScansTableCompanion copyWith(
       {Value<int>? id,
       Value<String>? websiteThreatType,
+      Value<String>? url,
       Value<int>? httpCode,
       Value<bool>? cleanResult,
       Value<int>? virusFoundCount}) {
     return ScansTableCompanion(
       id: id ?? this.id,
       websiteThreatType: websiteThreatType ?? this.websiteThreatType,
+      url: url ?? this.url,
       httpCode: httpCode ?? this.httpCode,
       cleanResult: cleanResult ?? this.cleanResult,
       virusFoundCount: virusFoundCount ?? this.virusFoundCount,
@@ -179,6 +199,9 @@ class ScansTableCompanion extends UpdateCompanion<ScansTableData> {
     }
     if (websiteThreatType.present) {
       map['website_threat_type'] = Variable<String>(websiteThreatType.value);
+    }
+    if (url.present) {
+      map['url'] = Variable<String>(url.value);
     }
     if (httpCode.present) {
       map['http_code'] = Variable<int>(httpCode.value);
@@ -197,6 +220,7 @@ class ScansTableCompanion extends UpdateCompanion<ScansTableData> {
     return (StringBuffer('ScansTableCompanion(')
           ..write('id: $id, ')
           ..write('websiteThreatType: $websiteThreatType, ')
+          ..write('url: $url, ')
           ..write('httpCode: $httpCode, ')
           ..write('cleanResult: $cleanResult, ')
           ..write('virusFoundCount: $virusFoundCount')
@@ -227,6 +251,14 @@ class $ScansTableTable extends ScansTable
               minTextLength: 4, maxTextLength: 2048),
           type: const StringType(),
           requiredDuringInsert: true);
+  final VerificationMeta _urlMeta = const VerificationMeta('url');
+  @override
+  late final GeneratedColumn<String?> url = GeneratedColumn<String?>(
+      'url', aliasedName, false,
+      additionalChecks: GeneratedColumn.checkTextLength(
+          minTextLength: 4, maxTextLength: 2048),
+      type: const StringType(),
+      requiredDuringInsert: true);
   final VerificationMeta _httpCodeMeta = const VerificationMeta('httpCode');
   @override
   late final GeneratedColumn<int?> httpCode = GeneratedColumn<int?>(
@@ -248,7 +280,7 @@ class $ScansTableTable extends ScansTable
       type: const IntType(), requiredDuringInsert: true);
   @override
   List<GeneratedColumn> get $columns =>
-      [id, websiteThreatType, httpCode, cleanResult, virusFoundCount];
+      [id, websiteThreatType, url, httpCode, cleanResult, virusFoundCount];
   @override
   String get aliasedName => _alias ?? 'scans_table';
   @override
@@ -268,6 +300,12 @@ class $ScansTableTable extends ScansTable
               data['website_threat_type']!, _websiteThreatTypeMeta));
     } else if (isInserting) {
       context.missing(_websiteThreatTypeMeta);
+    }
+    if (data.containsKey('url')) {
+      context.handle(
+          _urlMeta, url.isAcceptableOrUnknown(data['url']!, _urlMeta));
+    } else if (isInserting) {
+      context.missing(_urlMeta);
     }
     if (data.containsKey('http_code')) {
       context.handle(_httpCodeMeta,

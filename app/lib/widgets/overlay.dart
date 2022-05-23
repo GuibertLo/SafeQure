@@ -1,4 +1,4 @@
-import 'package:app/widgets/result.dart';
+import 'package:app/widgets/qr_data.dart';
 import 'package:flutter/cupertino.dart';
 import 'package:flutter/material.dart';
 

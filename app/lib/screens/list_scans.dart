@@ -1,4 +1,6 @@
 import 'package:app/models/response.dart';
+import 'package:app/repository/database.dart';
+import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
@@ -13,7 +15,7 @@ class ListScans extends StatelessWidget {
     required this.responses,
   }) : super(key: key);
 
-  final List<ScanReqResponse> responses;
+  final List<ScansTableData> responses;
 
   //static const String route = "/listScans";
 
@@ -22,7 +24,7 @@ class ListScans extends StatelessWidget {
     return ListView.builder(
         itemCount: responses.length,
         itemBuilder: (context, index) {
-          ScanReqResponse response = responses[index];
+          ScansTableData response = responses[index];
           return ResponseItem(
             response: response,
             onDetails: () => {
@@ -46,8 +48,8 @@ class ListScans extends StatelessWidget {
 }
 
 
-void _onTrash(BuildContext context, ScanReqResponse response) {
+void _onTrash(BuildContext context, ScansTableData response) {
 
-  Provider.of<AppState>(context, listen: false).deleteResponse(response);
+  Provider.of<ResponsesRepository>(context, listen: false).deleteResponse(response.id);
 
 }

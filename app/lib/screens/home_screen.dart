@@ -2,7 +2,7 @@ import 'package:app/screens/history_screen.dart';
 import 'package:app/screens/scanner.dart';
 import 'package:flutter/material.dart';
 
-
+import '../repository/repository.dart';
 import 'list_scans.dart';
 
 class HomeScreen extends StatefulWidget {

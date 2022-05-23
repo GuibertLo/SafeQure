@@ -20,29 +20,44 @@ class HistoryScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     final height = MediaQuery.of(context).size.height;
 
-    final responses = Provider.of<ResponsesRepository>(context).getAllResponses();
-
-    if (responses.isEmpty) {
-      return Center(
-        child: Column(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Icon(
-              Icons.edit_off,
-              size: height * 0.04,
-            ),
-            Text(
-              "Todos empty",
-              style: TextStyle(fontSize: height * 0.02),
-            )
-          ],
-        ),
-      );
-    }
-
-    return ListScans(
-        responses: responses
+    return StreamBuilder<List<ScansTableData>>(
+      stream: Provider.of<ResponsesRepository>(context).getAllResponses(),
+      builder: (context, snapshot) {
+        switch (snapshot.connectionState) {
+          case ConnectionState.waiting:
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          default:
+            if (snapshot.hasError) {
+              return const Text('Error fetching scans! Please contact the developer.');
+            } else {
+              List<ScansTableData> responses = snapshot.data!;
+              if (responses.isEmpty) {
+                return Center(
+                  child: Column(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    crossAxisAlignment: CrossAxisAlignment.center,
+                    children: [
+                      Icon(
+                        Icons.edit_off,
+                        size: height * 0.04,
+                      ),
+                      Text(
+                        "Todos empty",
+                        style: TextStyle(fontSize: height * 0.02),
+                      )
+                    ],
+                  ),
+                );
+              } else {
+                return ListScans(
+                    responses: responses
+                );
+              }
+            }
+          }
+      }
     );
   }
 }

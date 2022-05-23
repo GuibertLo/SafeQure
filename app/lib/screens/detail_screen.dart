@@ -1,10 +1,13 @@
 import 'package:app/models/response.dart';
+import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart';
+import 'package:provider/provider.dart' as Custom;
+
+import '../repository/database.dart';
 
 class DetailScreen extends StatelessWidget {
 
-  final ScanReqResponse response;
+  final ScansTableData response;
   final Function onDelete;
 
   const DetailScreen({
@@ -20,9 +23,9 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Response details"),
       ),
-      body: Selector<AppState, ScanReqResponse?>(
+      body: Custom.Selector<ResponsesRepository, ScansTableData?>(
         shouldRebuild: (prev, next) => next != null,
-        selector: (context, model) => model.responseById(response.id),
+        selector: (context, model) => response,
         builder: (context, t, _) {
           return Padding(
             padding: const EdgeInsets.all(16.0),

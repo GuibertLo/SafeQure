@@ -20,7 +20,8 @@ class QrData extends StatelessWidget {
               result.url!.url!,
             ) /*'Barcode Type: ${describeEnum(result.format)}   Data: ${result.url?.url}')*/,
             onPressed: Uri.parse(result.url?.url ?? "").isAbsolute
-                ? () => {ApiRequestVT.runScan(result.url!.url!)}
-                : null));
+                ? () => {launchScan(result.url!.url!)}
+                : null)
+    );
   }
 }

@@ -11,6 +11,7 @@ part 'database.g.dart';
 class ScansTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get websiteThreatType => text().withLength(min: 4, max: 2048)();
+  TextColumn get url => text().withLength(min: 4, max: 2048)();
   IntColumn get httpCode => integer()();
   BoolColumn get cleanResult => boolean()();
   IntColumn get virusFoundCount => integer()();
@@ -21,15 +22,19 @@ class MyDatabase extends _$MyDatabase {
   MyDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 1;
+  int get schemaVersion => 3;
 
   Stream<List<ScansTableData>> get allScans => select(scansTable).watch();
+
+  Future<List<ScansTableData>> getScan(int id) {
+    return (select(scansTable)..where((tbl) => tbl.id.equals(id))).get();
+  }
 
   Future<int> deleteScan(int id) {
     return (delete(scansTable)..where((tbl) => tbl.id.equals(id))).go();
   }
 
-  Future<int> saveScan(ScansTableData td) {
+  Future<int> saveScan(ScansTableCompanion td) {
     return into(scansTable).insertOnConflictUpdate(td);
   }
 }

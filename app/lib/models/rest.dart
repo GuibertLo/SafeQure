@@ -24,7 +24,7 @@ class ApiRequestVT {
   static Future<ScanReqResponse?> runScan(String url) async {
     ScanReqResponse? reqResponse;
     http.Response resp = await fetchScan(url);
-    reqResponse = ScanReqResponse.fromJson(jsonDecode(resp.body));
+    reqResponse = ScanReqResponse.fromJson(jsonDecode(resp.body), url);
     if (reqResponse == null) {
       throw Exception('Failed to fetch scan');
     }

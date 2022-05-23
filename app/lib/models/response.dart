@@ -1,6 +1,4 @@
 
-import 'package:uuid/uuid.dart';
-
 // ignore: slash_for_doc_comments
 /**
 * WebsiteScanResult{
@@ -43,26 +41,26 @@ class VirusFound {
 }
 
 class ScanReqResponse {
-  String id;
   final bool cleanResult;
   final String websiteThreatType;
+  final String url;
   final List<VirusFound> virusFound;
   final int httpCode;
 
   ScanReqResponse(
       {required this.cleanResult,
-      required this.websiteThreatType,
+        required this.websiteThreatType,
+        required this.url,
       required this.virusFound,
-      required this.httpCode,
-      required this.id});
+      required this.httpCode});
 
-  factory ScanReqResponse.fromJson(Map<String, dynamic> json) {
+  factory ScanReqResponse.fromJson(Map<String, dynamic> json, String url) {
     return ScanReqResponse(
       cleanResult: json['CleanResult'],
       websiteThreatType: json['WebsiteThreatType'],
+      url: url,
       httpCode: json['WebsiteHttpResponseCode'],
       virusFound: (json['FoundViruses'] ?? []),
-      id: const Uuid().v4()
     );
   }
 }
