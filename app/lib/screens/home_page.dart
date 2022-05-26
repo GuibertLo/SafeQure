@@ -30,7 +30,7 @@ class _HomePageState extends State<HomePage> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Scans"),
+        title: const Text("SafeQure"),
       ),
       body: activeTab == AppTab.scanner
           ? const ScannerScreen()

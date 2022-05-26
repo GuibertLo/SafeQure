@@ -3,7 +3,7 @@ import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import 'list_scans.dart';
+import '../widgets/list_scans.dart';
 
 class HistoryScreen extends StatelessWidget {
 

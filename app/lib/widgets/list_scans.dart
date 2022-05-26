@@ -3,8 +3,8 @@ import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
 
-import '../widgets/response_item.dart';
-import 'detail_screen.dart';
+import 'response_item.dart';
+import '../screens/detail_screen.dart';
 
 
 class ListScans extends StatelessWidget {
