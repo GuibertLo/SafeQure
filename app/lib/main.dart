@@ -1,6 +1,6 @@
-import 'package:app/local_api/local_api.dart';
+import 'package:app/api/local_api.dart';
 import 'package:app/repository/repository.dart';
-import 'package:app/repository/database.dart';
+import 'package:app/storage/database.dart';
 import 'package:flutter/material.dart';
 
 import 'app.dart';

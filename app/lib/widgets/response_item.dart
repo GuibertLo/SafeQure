@@ -1,7 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/response.dart';
-import '../repository/database.dart';
+import '../storage/database.dart';
 
 class ResponseItem extends StatelessWidget {
   const ResponseItem(

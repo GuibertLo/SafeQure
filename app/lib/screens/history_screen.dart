@@ -1,5 +1,4 @@
-import 'package:app/models/response.dart';
-import 'package:app/repository/database.dart';
+import 'package:app/storage/database.dart';
 import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -44,7 +43,7 @@ class HistoryScreen extends StatelessWidget {
                         size: height * 0.04,
                       ),
                       Text(
-                        "Todos empty",
+                        "No stored scans.",
                         style: TextStyle(fontSize: height * 0.02),
                       )
                     ],

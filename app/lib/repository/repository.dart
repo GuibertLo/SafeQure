@@ -1,6 +1,6 @@
 import 'package:app/models/response.dart';
-import 'package:app/repository/database.dart';
-import '../local_api/local_api.dart';
+import 'package:app/storage/database.dart';
+import '../api/local_api.dart';
 
 /// The repo must fetch todos from an API or DB for the moment we
 /// return this sample list

@@ -1,5 +1,4 @@
-import 'package:app/models/response.dart';
-import 'package:app/repository/database.dart';
+import 'package:app/storage/database.dart';
 import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart';
@@ -31,8 +30,6 @@ class ListScans extends StatelessWidget {
             Navigator.of(context).push(MaterialPageRoute(builder: (_) {
               return DetailScreen(
                 response: response,
-
-                /// TODO: 2.8 DONE remove updateTodo
                 onDelete: () => _onTrash(context, response),
               );
             }))

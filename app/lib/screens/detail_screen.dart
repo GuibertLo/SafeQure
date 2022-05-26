@@ -1,9 +1,8 @@
-import 'package:app/models/response.dart';
 import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
-import 'package:provider/provider.dart' as Custom;
+import 'package:provider/provider.dart' as custom;
 
-import '../repository/database.dart';
+import '../storage/database.dart';
 
 class DetailScreen extends StatelessWidget {
 
@@ -23,7 +22,7 @@ class DetailScreen extends StatelessWidget {
       appBar: AppBar(
         title: const Text("Response details"),
       ),
-      body: Custom.Selector<ResponsesRepository, ScansTableData?>(
+      body: custom.Selector<ResponsesRepository, ScansTableData?>(
         shouldRebuild: (prev, next) => next != null,
         selector: (context, model) => response,
         builder: (context, t, _) {

@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:app/models/rest.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrData extends StatelessWidget {
