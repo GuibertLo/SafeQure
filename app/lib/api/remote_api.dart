@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'package:app/models/response.dart';
 import 'package:http/http.dart' as http;
 
-class ApiRequestVT {
+class ApiRequest {
   static const String _root = "https://api.cloudmersive.com/";
   static const String _resource = "website/";
   static const String _typeApi = "virus/";
@@ -35,7 +35,6 @@ class ApiRequestVT {
     } else {
       // If the server did not return a 200 OK response,
       // then throw an exception.
-      print("error");
       return null;
     }
   }

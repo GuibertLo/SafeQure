@@ -1,7 +1,6 @@
 import 'package:flutter/foundation.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/widgets.dart';
-import 'package:app/models/rest.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 
 class QrData extends StatelessWidget {
@@ -20,7 +19,8 @@ class QrData extends StatelessWidget {
               result.url!.url!,
             ) /*'Barcode Type: ${describeEnum(result.format)}   Data: ${result.url?.url}')*/,
             onPressed: Uri.parse(result.url?.url ?? "").isAbsolute
-                ? () => {ApiRequestVT.runScan(result.url!.url!)}
-                : null));
+                ? () => {launchScan(result.url!.url!)}
+                : null)
+    );
   }
 }

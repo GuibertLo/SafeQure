@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 
-import '../models/response.dart';
+import '../storage/database.dart';
 
 class ResponseItem extends StatelessWidget {
   const ResponseItem(
@@ -10,7 +10,7 @@ class ResponseItem extends StatelessWidget {
         required this.onDetails})
       : super(key: key);
 
-  final ScanReqResponse response;
+  final ScansTableData response;
   final GestureTapCallback onTrash;
   final GestureTapCallback onDetails;
 
@@ -58,8 +58,8 @@ class ResponseItem extends StatelessWidget {
               child: Text("Unsafe", style: TextStyle(color: Colors.white))
           ),
         ),
-        title: Text(response.websiteThreatType),
-        subtitle: Text(response.virusFound.toString()),
+        title: Text(response.url),
+        subtitle: Text(response.virusFoundCount.toString()),
         trailing: const Icon(Icons.more_horiz_rounded),
         onTap: onDetails,
         onLongPress: onTrash,

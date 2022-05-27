@@ -1,25 +1,21 @@
 import 'package:app/screens/history_screen.dart';
-import 'package:app/screens/scanner.dart';
+import 'package:app/screens/scanner_screen.dart';
 import 'package:flutter/material.dart';
 
+import '../repository/repository.dart';
 
-import '../models/app_state.dart';
-import 'list_scans.dart';
-
-class HomeScreen extends StatefulWidget {
-  /// TODO 2.2 DONE Remove all functions and appState parameters in constructor and attributes
-
-  const HomeScreen({
+class HomePage extends StatefulWidget {
+  const HomePage({
     Key? key,
   }) : super(key: key);
 
   static const String route = "/homeScreen";
 
   @override
-  State<HomeScreen> createState() => _HomeScreenState();
+  State<HomePage> createState() => _HomePageState();
 }
 
-class _HomeScreenState extends State<HomeScreen> {
+class _HomePageState extends State<HomePage> {
   AppTab activeTab = AppTab.scanner;
 
   // Because activeTab is specific to this widget only, it is not useful to
@@ -34,10 +30,10 @@ class _HomeScreenState extends State<HomeScreen> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Scans"),
+        title: const Text("SafeQure"),
       ),
       body: activeTab == AppTab.scanner
-          ? const Scanner()
+          ? const ScannerScreen()
           : const HistoryScreen(),
 
       bottomNavigationBar: BottomNavigationBar(

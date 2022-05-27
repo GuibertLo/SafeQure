@@ -1,22 +1,25 @@
 import 'package:app/models/response.dart';
-import 'package:app/models/rest.dart';
-import 'package:app/widgets/result.dart';
+import 'package:app/api/remote_api.dart';
+import 'package:app/widgets/qr_data.dart';
 import 'package:app/widgets/overlay.dart' as custom;
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
+import 'package:provider/provider.dart';
 
-class Scanner extends StatefulWidget {
-  const Scanner({
+import '../repository/repository.dart';
+
+class ScannerScreen extends StatefulWidget {
+  const ScannerScreen({
     Key? key,
   }) : super(key: key);
 
   static const String route = "/scanner";
 
   @override
-  State<Scanner> createState() => _ScannerState();
+  State<ScannerScreen> createState() => _ScannerScreenState();
 }
 
-class _ScannerState extends State<Scanner> {
+class _ScannerScreenState extends State<ScannerScreen> {
   MobileScannerController cameraController = MobileScannerController();
   QrData? qrData;
   @override
@@ -56,8 +59,8 @@ class _ScannerState extends State<Scanner> {
 
   Future<void> _launchScan(String url) async {
     /*Thanks to nullable check, we are sure to have a valid url*/
+    ScanReqResponse? scan = await ApiRequest.runScan(url);
 
-    ScanReqResponse? scan = await ApiRequestVT.runScan(url);
-    /*TODO Add line in history*/
+    await Provider.of<ResponsesRepository>(context, listen: false).saveResponse(scan!);
   }
 }
