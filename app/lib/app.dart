@@ -24,6 +24,7 @@ class _AppState extends State<App> {
         create: (_) => AppState(),
         child: MaterialApp(
           localizationsDelegates: const [
+            AppLocalizations.delegate,
             GlobalMaterialLocalizations.delegate,
             GlobalWidgetsLocalizations.delegate,
             GlobalCupertinoLocalizations.delegate,
