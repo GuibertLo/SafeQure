@@ -25,7 +25,9 @@ class LocalApi {
         websiteThreatType: Value(newScan.websiteThreatType),
         httpCode: Value(newScan.httpCode),
         cleanResult: Value(newScan.cleanResult),
-        virusFoundCount: Value(newScan.virusFound.length)));
+        virusFoundCount: Value(newScan.virusFound.length),
+        dateScan: Value(DateTime.now())
+    ));
   }
 
   Stream<List<ScansTableData>> getAllResponses() => _db.allScans;

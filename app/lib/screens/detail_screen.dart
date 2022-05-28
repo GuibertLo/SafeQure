@@ -103,7 +103,7 @@ class DetailScreen extends StatelessWidget {
         child: Center(
             child: Container(
                 color: Colors.blue,
-                child: Text(response.httpCode.toString(),
+                child: Text(response.dateScan.toString(),
                     style: Theme.of(context).textTheme.subtitle1))),
       )
     ]));

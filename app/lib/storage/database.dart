@@ -14,6 +14,7 @@ class ScansTable extends Table {
   IntColumn get httpCode => integer()();
   BoolColumn get cleanResult => boolean()();
   IntColumn get virusFoundCount => integer()();
+  DateTimeColumn get dateScan => dateTime()();
 }
 
 @DriftDatabase(tables: [ScansTable])
@@ -21,7 +22,7 @@ class MyDatabase extends _$MyDatabase {
   MyDatabase() : super(_openConnection());
 
   @override
-  int get schemaVersion => 3;
+  int get schemaVersion => 4;
 
   Stream<List<ScansTableData>> get allScans => (select(scansTable)
         ..orderBy(
