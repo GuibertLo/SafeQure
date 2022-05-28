@@ -7,7 +7,6 @@ import 'package:path_provider/path_provider.dart';
 
 part 'database.g.dart';
 
-
 class ScansTable extends Table {
   IntColumn get id => integer().autoIncrement()();
   TextColumn get websiteThreatType => text().withLength(min: 4, max: 2048)();
@@ -24,10 +23,22 @@ class MyDatabase extends _$MyDatabase {
   @override
   int get schemaVersion => 3;
 
-  Stream<List<ScansTableData>> get allScans => select(scansTable).watch();
+  Stream<List<ScansTableData>> get allScans => (select(scansTable)
+        ..orderBy(
+            [(u) => OrderingTerm(expression: u.id, mode: OrderingMode.desc)]))
+      .watch();
 
-  Future<List<ScansTableData>> getScan(int id) {
-    return (select(scansTable)..where((tbl) => tbl.id.equals(id))).get();
+  Stream<ScansTableData> getScan(int id) {
+    return (select(scansTable)..where((tbl) => tbl.id.equals(id)))
+        .watchSingle();
+  }
+
+  Stream<ScansTableData> getLastScan() {
+    return (select(scansTable)
+          ..orderBy(
+              [(u) => OrderingTerm(expression: u.id, mode: OrderingMode.desc)])
+          ..limit(1))
+        .watchSingle();
   }
 
   Future<int> deleteScan(int id) {
@@ -41,9 +52,9 @@ class MyDatabase extends _$MyDatabase {
 
 LazyDatabase _openConnection() {
   // the LazyDatabase util lets us find the right location for the file async.
-    return LazyDatabase(() async {
-      final dbFolder = await getApplicationDocumentsDirectory();
-      final file = File(p.join(dbFolder.path, 'db.sqlite'));
-      return NativeDatabase(file, logStatements: true);
-    });
+  return LazyDatabase(() async {
+    final dbFolder = await getApplicationDocumentsDirectory();
+    final file = File(p.join(dbFolder.path, 'db.sqlite'));
+    return NativeDatabase(file, logStatements: true);
+  });
 }

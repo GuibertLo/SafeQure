@@ -5,7 +5,6 @@ import 'package:provider/provider.dart' as custom;
 import '../storage/database.dart';
 
 class DetailScreen extends StatelessWidget {
-
   final ScansTableData response;
   final Function onDelete;
 
@@ -17,7 +16,6 @@ class DetailScreen extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-
     return Scaffold(
       appBar: AppBar(
         title: const Text("Response details"),
@@ -38,15 +36,11 @@ class DetailScreen extends StatelessWidget {
                         crossAxisAlignment: CrossAxisAlignment.start,
                         children: [
                           Padding(
-                            padding: const EdgeInsets.only(
-                              top: 8.0,
-                              bottom: 16.0,
-                            ),
-                            child: Text(
-                              response.url,
-                              style: Theme.of(context).textTheme.headlineMedium,
-                            ),
-                          ),
+                              padding: const EdgeInsets.only(
+                                top: 8.0,
+                                bottom: 16.0,
+                              ),
+                              child: header(context, response)),
                           Text(
                             response.httpCode.toString(),
                             style: Theme.of(context).textTheme.subtitle1,
@@ -68,8 +62,33 @@ class DetailScreen extends StatelessWidget {
         onPressed: () {
           onDelete();
           Navigator.pop(context);
-         },
-       ),
+        },
+      ),
     );
+  }
+
+  Widget header(BuildContext context, ScansTableData response) {
+    double height, width;
+    height = MediaQuery.of(context).size.height;
+    width = MediaQuery.of(context).size.width;
+    if (height < width) {
+      //Screen rotated
+      double tmp = height;
+      height = width;
+      width = tmp;
+    }
+    return Center(
+        child: Column(children: [
+      Container(
+          width: width * 0.4,
+          child: Image(
+              image: response.cleanResult
+                  ? AssetImage('rsc/img/insurance.png')
+                  : AssetImage('rsc/img/shield.png'))),
+      Text(
+        Uri.parse(response.url).host,
+        style: Theme.of(context).textTheme.headlineSmall,
+      ),
+    ]));
   }
 }

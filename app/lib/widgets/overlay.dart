@@ -11,24 +11,21 @@ class Overlay extends StatefulWidget {
 }
 
 class _OverlayState extends State<Overlay> {
-  double? height, width;
   double innerWidth = 0, borderWidth = 0;
 
   @override
   Widget build(BuildContext context) {
+    double height, width;
     borderWidth = 3;
     height = MediaQuery.of(context).size.height;
     width = MediaQuery.of(context).size.width;
-    if (width == null || height == null) {
-      return Container();
-    }
-    if (height! < width!) {
+    if (height < width) {
       //Screen rotated
-      double tmp = height!;
+      double tmp = height;
       height = width;
       width = tmp;
     }
-    innerWidth = 60 / 100 * width!;
+    innerWidth = 60 / 100 * width;
     // opac_border_width = (width! - inner_width - border_width) / 2;
     // opac_border_height = (height! - inner_width - border_width) / 2;
     return Center(
@@ -40,7 +37,7 @@ class _OverlayState extends State<Overlay> {
               child: Container(
                 decoration: BoxDecoration(
                     border: Border.all(
-                        width: height!, color: Colors.black.withOpacity(0.35))),
+                        width: height, color: Colors.black.withOpacity(0.35))),
                 child: Column(children: [
                   Container(
                     width: innerWidth,

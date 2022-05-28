@@ -5,8 +5,12 @@ import 'package:app/widgets/overlay.dart' as custom;
 import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
+import 'package:app/storage/database.dart';
 
 import '../repository/repository.dart';
+import '../storage/database.dart';
+import 'detail_screen.dart';
+import 'history_screen.dart';
 
 class ScannerScreen extends StatefulWidget {
   const ScannerScreen({
@@ -31,9 +35,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
             controller: cameraController,
             onDetect: (barcode, args) {
               final String? code = barcode.url?.url;
-              setState(() {
-                qrData = QrData(barcode, _launchScan);
-              });
+              if (barcode.url != null && barcode.url!.url != null) {
+                if (Uri.parse(barcode.url!.url!).isAbsolute) {
+                  setState(() {
+                    qrData = QrData(barcode, _launchScan);
+                  });
+                }
+              }
               // _launchScan(code!);
             }),
         custom.Overlay(qr: qrData),
@@ -57,10 +65,32 @@ class _ScannerScreenState extends State<ScannerScreen> {
     );
   }
 
-  Future<void> _launchScan(String url) async {
+  Future<void> _launchScan(BuildContext context, String url) async {
     /*Thanks to nullable check, we are sure to have a valid url*/
-    ScanReqResponse? scan = await ApiRequest.runScan(url);
+    ScanReqResponse? scan = await ApiRequest.runScan(url); //fetching new scan
 
-    await Provider.of<ResponsesRepository>(context, listen: false).saveResponse(scan!);
+    await Provider.of<ResponsesRepository>(context, listen: false)
+        .saveResponse(scan!); //instert in DB
+
+    ScansTableData? justScanned = await Provider.of<ResponsesRepository>(
+            context,
+            listen: false)
+        .getLastScan(); //Get the just inserted row (using ID... i know it's ugly)
+
+    if (qrData != null) {
+      qrData!.resetLoading();
+    }
+    if (justScanned == null) {
+      print("Wtf Didn't Found Any Row ? ?!");
+      return;
+    }
+
+    Navigator.of(context).push(MaterialPageRoute(builder: (_) {
+      return DetailScreen(
+        response: justScanned,
+        onDelete: () => Provider.of<ResponsesRepository>(context, listen: false)
+            .deleteResponse(justScanned.id),
+      );
+    }));
   }
 }

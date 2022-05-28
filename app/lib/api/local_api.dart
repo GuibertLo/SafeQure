@@ -11,17 +11,24 @@ class LocalApi {
     await _db.deleteScan(id);
   }
 
+  Future<ScansTableData?> getScan(int id) async {
+    return _db.getScan(id).first;
+  }
+
+  Future<ScansTableData?> getLastScan() async {
+    return _db.getLastScan().first;
+  }
+
   Future<void> saveResponse(ScanReqResponse newScan) async {
     await _db.saveScan(ScansTableCompanion(
         url: Value(newScan.url),
         websiteThreatType: Value(newScan.websiteThreatType),
         httpCode: Value(newScan.httpCode),
-        cleanResult : Value(newScan.cleanResult),
+        cleanResult: Value(newScan.cleanResult),
         virusFoundCount: Value(newScan.virusFound.length)));
   }
 
   Stream<List<ScansTableData>> getAllResponses() => _db.allScans;
 
-  Future<List<ScansTableData>> getResponseById(int id) => _db.getScan(id);
-
+  Future<ScansTableData?> getResponseById(int id) => getScan(id);
 }

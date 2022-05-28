@@ -1,3 +1,5 @@
+// ignore: slash_for_doc_comments
+import 'package:flutter/material.dart';
 
 // ignore: slash_for_doc_comments
 /**
@@ -49,18 +51,23 @@ class ScanReqResponse {
 
   ScanReqResponse(
       {required this.cleanResult,
-        required this.websiteThreatType,
-        required this.url,
+      required this.websiteThreatType,
+      required this.url,
       required this.virusFound,
       required this.httpCode});
 
   factory ScanReqResponse.fromJson(Map<String, dynamic> json, String url) {
+    List<dynamic>? listVF = json['FoundViruses'] as List?;
     return ScanReqResponse(
       cleanResult: json['CleanResult'],
       websiteThreatType: json['WebsiteThreatType'],
       url: url,
       httpCode: json['WebsiteHttpResponseCode'],
-      virusFound: (json['FoundViruses'] ?? []),
+      virusFound: listVF == null
+          ? []
+          : listVF
+              .map((jsonVirusFound) => VirusFound.fromJson(jsonVirusFound))
+              .toList(),
     );
   }
 }

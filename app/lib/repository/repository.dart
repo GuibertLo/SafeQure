@@ -12,11 +12,17 @@ class ResponsesRepository {
   // Call local API
   Stream<List<ScansTableData>> getAllResponses() => _localApi.getAllResponses();
 
-  Future<void> saveResponse(ScanReqResponse scan) => _localApi.saveResponse(scan);
+  Future<void> saveResponse(ScanReqResponse scan) =>
+      _localApi.saveResponse(scan);
 
   Future<void> deleteResponse(int id) => _localApi.deleteResponse(id);
 
-  Future<List<ScansTableData>> getResponseById(int id) => _localApi.getResponseById(id);
+  Future<ScansTableData?> getScan(int id) => _localApi.getScan(id);
+
+  Future<ScansTableData?> getLastScan() => _localApi.getLastScan();
+
+  Future<ScansTableData?> getResponseById(int id) =>
+      _localApi.getResponseById(id);
 }
 
 enum AppTab { scanner, list }
