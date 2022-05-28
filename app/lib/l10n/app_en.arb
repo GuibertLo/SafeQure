@@ -7,7 +7,11 @@
     "url": "Complet url",
     "ammountVirus": "Ammount of virus found",
     "openLink": "Open link",
-    "dateOfScan": "Date of scan",
-    "deleteScan": "Delete"
+    "dateOfScan": "Date of scan:",
+    "deleteScan": "Delete",
+    "trashConfirm": "Delete this scan ?",
+    "cancel": "Cancel",
+    "yes": "Yes",
+    "trashDescription": "This action will delete the selected scan"
 
 }

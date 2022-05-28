@@ -3,6 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as custom;
 import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../storage/database.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class DetailScreen extends StatelessWidget {
   final ScansTableData response;
@@ -56,10 +57,7 @@ class DetailScreen extends StatelessWidget {
         tooltip: AppLocalizations.of(context)!.deleteScan,
         child: const Icon(Icons.delete_rounded),
         backgroundColor: Colors.red,
-        onPressed: () {
-          onDelete();
-          Navigator.pop(context);
-        },
+        onPressed: () => {onDelete(context, response)},
       ),
     );
   }
@@ -91,21 +89,59 @@ class DetailScreen extends StatelessWidget {
 
   Widget body(BuildContext context, ScansTableData response) {
     return Container(
-        child: Row(children: [
-      Flexible(
-          flex: 5,
-          child: Container(
-              color: Colors.amber,
-              child: Text(AppLocalizations.of(context)!.ammountVirus,
-                  style: Theme.of(context).textTheme.subtitle1))),
-      Flexible(
-        flex: 1,
-        child: Center(
-            child: Container(
-                color: Colors.blue,
-                child: Text(response.dateScan.toString(),
-                    style: Theme.of(context).textTheme.subtitle1))),
-      )
-    ]));
+      child: Column(children: [
+        Divider(),
+        Container(
+            height: 50,
+            child: Row(children: [
+              Flexible(
+                  flex: 3,
+                  child: Container(
+                      width: double.infinity,
+                      child: Text(AppLocalizations.of(context)!.ammountVirus,
+                          style: Theme.of(context).textTheme.subtitle1))),
+              Flexible(
+                flex: 3,
+                child: Container(
+                    width: double.infinity,
+                    child: Center(
+                        child: Text(response.virusFoundCount.toString(),
+                            style: Theme.of(context).textTheme.subtitle1))),
+              )
+            ])),
+        Divider(),
+        Container(
+            height: 50,
+            child: Row(children: [
+              Flexible(
+                  flex: 5,
+                  child: Container(
+                      width: double.infinity,
+                      child: Text(AppLocalizations.of(context)!.dateOfScan,
+                          style: Theme.of(context).textTheme.subtitle1))),
+              Flexible(
+                flex: 3,
+                child: Container(
+                    width: double.infinity,
+                    child: Center(
+                        child: Text(response.dateScan.toString(),
+                            style: Theme.of(context).textTheme.subtitle1))),
+              )
+            ])),
+        Divider(),
+        ElevatedButton(
+            onPressed: _lunchUrl,
+            child: Text(AppLocalizations.of(context)!.openLink))
+      ]),
+    );
+  }
+
+  _lunchUrl() async {
+    Uri url = Uri.parse(response.url);
+    if (await canLaunchUrl(url)) {
+      await launchUrl(url);
+    } else {
+      throw "Could not launch $url";
+    }
   }
 }

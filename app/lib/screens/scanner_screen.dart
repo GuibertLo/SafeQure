@@ -6,7 +6,7 @@ import 'package:flutter/material.dart';
 import 'package:mobile_scanner/mobile_scanner.dart';
 import 'package:provider/provider.dart';
 import 'package:app/storage/database.dart';
-
+import 'package:app/models/trash.dart' as Trash;
 import '../repository/repository.dart';
 import '../storage/database.dart';
 import 'detail_screen.dart';
@@ -68,9 +68,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
   Future<void> _launchScan(BuildContext context, String url) async {
     /*Thanks to nullable check, we are sure to have a valid url*/
     ScanReqResponse? scan = await ApiRequest.runScan(url); //fetching new scan
+    if (scan == null) {
+      //TODO: SHOW POP_UP
+      return;
+    }
 
     await Provider.of<ResponsesRepository>(context, listen: false)
-        .saveResponse(scan!); //instert in DB
+        .saveResponse(scan); //instert in DB
 
     ScansTableData? justScanned = await Provider.of<ResponsesRepository>(
             context,
@@ -88,8 +92,9 @@ class _ScannerScreenState extends State<ScannerScreen> {
     Navigator.of(context).push(MaterialPageRoute(builder: (_) {
       return DetailScreen(
         response: justScanned,
-        onDelete: () => Provider.of<ResponsesRepository>(context, listen: false)
-            .deleteResponse(justScanned.id),
+        onDelete: Trash.onTrash,
+        // onDelete: () => Provider.of<ResponsesRepository>(context, listen: false)
+        //     .deleteResponse(justScanned.id),
       );
     }));
   }
