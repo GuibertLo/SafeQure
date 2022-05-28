@@ -1,7 +1,7 @@
 import 'package:app/repository/repository.dart';
 import 'package:flutter/material.dart';
 import 'package:provider/provider.dart' as custom;
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../storage/database.dart';
 
 class DetailScreen extends StatelessWidget {
@@ -18,7 +18,7 @@ class DetailScreen extends StatelessWidget {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
-        title: const Text("Response details"),
+        title: Text(AppLocalizations.of(context)!.responseDetail),
       ),
       body: custom.Selector<ResponsesRepository, ScansTableData?>(
         shouldRebuild: (prev, next) => next != null,
@@ -41,10 +41,7 @@ class DetailScreen extends StatelessWidget {
                                 bottom: 16.0,
                               ),
                               child: header(context, response)),
-                          Text(
-                            response.httpCode.toString(),
-                            style: Theme.of(context).textTheme.subtitle1,
-                          )
+                          body(context, response)
                         ],
                       ),
                     ),
@@ -56,7 +53,7 @@ class DetailScreen extends StatelessWidget {
         },
       ),
       floatingActionButton: FloatingActionButton(
-        tooltip: "Delete scan",
+        tooltip: AppLocalizations.of(context)!.deleteScan,
         child: const Icon(Icons.delete_rounded),
         backgroundColor: Colors.red,
         onPressed: () {
@@ -89,6 +86,26 @@ class DetailScreen extends StatelessWidget {
         Uri.parse(response.url).host,
         style: Theme.of(context).textTheme.headlineSmall,
       ),
+    ]));
+  }
+
+  Widget body(BuildContext context, ScansTableData response) {
+    return Container(
+        child: Row(children: [
+      Flexible(
+          flex: 5,
+          child: Container(
+              color: Colors.amber,
+              child: Text(AppLocalizations.of(context)!.ammountVirus,
+                  style: Theme.of(context).textTheme.subtitle1))),
+      Flexible(
+        flex: 1,
+        child: Center(
+            child: Container(
+                color: Colors.blue,
+                child: Text(response.httpCode.toString(),
+                    style: Theme.of(context).textTheme.subtitle1))),
+      )
     ]));
   }
 }

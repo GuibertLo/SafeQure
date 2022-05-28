@@ -1,5 +1,5 @@
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../storage/database.dart';
 
 class ResponseItem extends StatelessWidget {
@@ -39,8 +39,9 @@ class ResponseItem extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Center(
-                  child: Text("Safe", style: TextStyle(color: Colors.white))),
+              child: Center(
+                  child: Text(AppLocalizations.of(context)!.safe,
+                      style: TextStyle(color: Colors.white))),
             )
           : Container(
               width: 65,
@@ -53,8 +54,9 @@ class ResponseItem extends StatelessWidget {
                 ),
                 borderRadius: BorderRadius.circular(10),
               ),
-              child: const Center(
-                  child: Text("Unsafe", style: TextStyle(color: Colors.white))),
+              child: Center(
+                  child: Text(AppLocalizations.of(context)!.unsafe,
+                      style: TextStyle(color: Colors.white))),
             ),
       title: Text(Uri.parse(response.url).host),
       subtitle: response.cleanResult

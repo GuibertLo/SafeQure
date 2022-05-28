@@ -1,7 +1,7 @@
 import 'package:app/screens/history_screen.dart';
 import 'package:app/screens/scanner_screen.dart';
 import 'package:flutter/material.dart';
-
+import 'package:flutter_gen/gen_l10n/app_localizations.dart';
 import '../repository/repository.dart';
 
 class HomePage extends StatefulWidget {
@@ -35,12 +35,15 @@ class _HomePageState extends State<HomePage> {
       body: activeTab == AppTab.scanner
           ? const ScannerScreen()
           : const HistoryScreen(),
-
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: AppTab.values.indexOf(activeTab),
-        items: const [
-          BottomNavigationBarItem(icon: Icon(Icons.qr_code_scanner_rounded), label: "Scanner"),
-          BottomNavigationBarItem(icon: Icon(Icons.view_list_rounded), label: "History"),
+        items: [
+          BottomNavigationBarItem(
+              icon: Icon(Icons.qr_code_scanner_rounded),
+              label: AppLocalizations.of(context)!.scanner),
+          BottomNavigationBarItem(
+              icon: Icon(Icons.view_list_rounded),
+              label: AppLocalizations.of(context)!.history),
         ],
         onTap: (index) {
           _updateTab(AppTab.values[index]);

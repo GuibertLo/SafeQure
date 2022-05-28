@@ -1,6 +1,13 @@
 {
-    "helloWorld": "Hello World!",
-    "@helloWorld": {
-      "description": "The conventional newborn programmer greeting"
-    }
+    "scanner": "Scanner",
+    "history": "History",
+    "safe": "Safe",
+    "unsafe": "Unsafe",
+    "responseDetail": "Response details",
+    "url": "Complet url",
+    "ammountVirus": "Ammount of virus found",
+    "openLink": "Open link",
+    "dateOfScan": "Date of scan",
+    "deleteScan": "Delete"
+
 }
