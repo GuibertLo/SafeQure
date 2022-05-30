@@ -12,5 +12,7 @@
     "trashConfirm": "Êtes-vous sûre ?",
     "cancel": "Annuler",
     "yes": "Confirmer",
-    "trashDescription": "Cette action va supprimer le scan sélectionné"
+    "trashDescription": "Cette action va supprimer le scan sélectionné",
+    "errorFetchTitle": "Erreur de réseau",
+    "errorFetchDescription": "Pas de connexion,  Merci de vérifier vos paramètres d'accès"
 }

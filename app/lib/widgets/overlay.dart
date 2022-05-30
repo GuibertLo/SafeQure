@@ -6,8 +6,10 @@ class Overlay extends StatefulWidget {
   QrData? qr;
   Overlay({this.qr, Key? key}) : super(key: key);
 
+  final _OverlayState qrstate = _OverlayState();
   @override
-  State<Overlay> createState() => _OverlayState();
+  State<Overlay> createState() => qrstate;
+  void setNewQR(QrData? qr) => qrstate.setNewQR(qr);
 }
 
 class _OverlayState extends State<Overlay> {
@@ -55,5 +57,11 @@ class _OverlayState extends State<Overlay> {
             )
             // child: Container(width: 1, height: 1, color: Colors.blue),
             ));
+  }
+
+  void setNewQR(QrData? qr) {
+    setState(() {
+      widget.qr = qr;
+    });
   }
 }

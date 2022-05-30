@@ -32,9 +32,8 @@ class _HomePageState extends State<HomePage> {
       appBar: AppBar(
         title: const Text("SafeQure"),
       ),
-      body: activeTab == AppTab.scanner
-          ? const ScannerScreen()
-          : const HistoryScreen(),
+      body:
+          activeTab == AppTab.scanner ? ScannerScreen() : const HistoryScreen(),
       bottomNavigationBar: BottomNavigationBar(
         currentIndex: AppTab.values.indexOf(activeTab),
         items: [

@@ -12,6 +12,7 @@
     "trashConfirm": "Delete this scan ?",
     "cancel": "Cancel",
     "yes": "Yes",
-    "trashDescription": "This action will delete the selected scan"
-
+    "trashDescription": "This action will delete the selected scan",
+    "errorFetchTitle": "Network error",
+    "errorFetchDescription": "No connection. Please check your internet access"
 }

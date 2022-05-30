@@ -7,16 +7,15 @@ import 'package:mobile_scanner/mobile_scanner.dart';
 class QrData extends StatefulWidget {
   Barcode result;
   Function launchScan;
+  bool isScanning = false;
   final _QrDataState qrstate = _QrDataState();
   QrData(this.result, this.launchScan, {Key? key}) : super(key: key);
 
   @override
   State<QrData> createState() => qrstate;
-  void resetLoading() => qrstate.resetLoading();
 }
 
 class _QrDataState extends State<QrData> {
-  bool isScanning = false;
   @override
   Widget build(BuildContext context) {
     double screenWidth = MediaQuery.of(context).size.width;
@@ -33,7 +32,7 @@ class _QrDataState extends State<QrData> {
         height: 5 / 100 * screenHeight,
         width: 60 / 100 * screenWidth,
         child: ElevatedButton(
-            child: isScanning
+            child: widget.isScanning
                 ? const SpinKitCircle(
                     color: Colors.white,
                     size: 30.0,
@@ -43,15 +42,9 @@ class _QrDataState extends State<QrData> {
                   ),
             onPressed: () {
               setState(() {
-                isScanning = true;
+                widget.isScanning = true;
               });
               widget.launchScan(context, widget.result.url!.url!);
             }));
-  }
-
-  void resetLoading() {
-    setState(() {
-      isScanning = false;
-    });
   }
 }

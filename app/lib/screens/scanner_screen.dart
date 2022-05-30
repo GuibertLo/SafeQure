@@ -1,3 +1,4 @@
+import 'package:app/models/fetch_error.dart';
 import 'package:app/models/response.dart';
 import 'package:app/api/remote_api.dart';
 import 'package:app/widgets/qr_data.dart';
@@ -13,7 +14,8 @@ import 'detail_screen.dart';
 import 'history_screen.dart';
 
 class ScannerScreen extends StatefulWidget {
-  const ScannerScreen({
+  QrData? qrData = null;
+  ScannerScreen({
     Key? key,
   }) : super(key: key);
 
@@ -25,7 +27,6 @@ class ScannerScreen extends StatefulWidget {
 
 class _ScannerScreenState extends State<ScannerScreen> {
   MobileScannerController cameraController = MobileScannerController();
-  QrData? qrData;
   @override
   Widget build(BuildContext context) {
     return Scaffold(
@@ -38,13 +39,13 @@ class _ScannerScreenState extends State<ScannerScreen> {
               if (barcode.url != null && barcode.url!.url != null) {
                 if (Uri.parse(barcode.url!.url!).isAbsolute) {
                   setState(() {
-                    qrData = QrData(barcode, _launchScan);
+                    widget.qrData = QrData(barcode, _launchScan);
                   });
                 }
               }
               // _launchScan(code!);
             }),
-        custom.Overlay(qr: qrData),
+        custom.Overlay(qr: widget.qrData),
       ]),
       floatingActionButton: FloatingActionButton(
         tooltip: "Delete scan",
@@ -70,6 +71,12 @@ class _ScannerScreenState extends State<ScannerScreen> {
     ScanReqResponse? scan = await ApiRequest.runScan(url); //fetching new scan
     if (scan == null) {
       //TODO: SHOW POP_UP
+      onErrorFetch(
+          context,
+          () => setState(() {
+                //Destroy QR data after every scan
+                widget.qrData = null;
+              }));
       return;
     }
 
@@ -81,8 +88,11 @@ class _ScannerScreenState extends State<ScannerScreen> {
             listen: false)
         .getLastScan(); //Get the just inserted row (using ID... i know it's ugly)
 
-    if (qrData != null) {
-      qrData!.resetLoading();
+    if (widget.qrData != null) {
+      setState(() {
+        //Destroy QR data after every scan
+        widget.qrData = null;
+      });
     }
     if (justScanned == null) {
       print("Wtf Didn't Found Any Row ? ?!");
